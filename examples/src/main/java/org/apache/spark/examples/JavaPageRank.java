@@ -52,7 +52,7 @@ import org.apache.spark.sql.SparkSession;
  * </pre>
  */
 public final class JavaPageRank {
-  private static final Pattern SPACES = Pattern.compile("\\s*(=>|,|\\s)\\s*");
+  private static final Pattern SPACES = Pattern.compile("\\s*,\\s*");
 
   static void showWarning() {
     String warning = "WARN: This is a naive implementation of PageRank " +
@@ -82,6 +82,8 @@ public final class JavaPageRank {
       .appName("JavaPageRank")
       .getOrCreate();
 
+    long startTime = System.currentTimeMillis();
+    
     // Loads in input file. It should be in format of:
     //     URL         neighbor URL
     //     URL         neighbor URL
@@ -131,6 +133,10 @@ public final class JavaPageRank {
         }
       });
     }
+    
+    long elapsedTimeMillis = System.currentTimeMillis() - startTime;
+    System.out.printf("Total latency: %d s\n", elapsedTimeMillis / 1000);
+    
 
     // Collects all URL ranks and dump them to console.
     List<Tuple2<String, Double>> output = ranks.collect();
