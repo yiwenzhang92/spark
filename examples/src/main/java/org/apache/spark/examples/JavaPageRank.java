@@ -137,7 +137,7 @@ public final class JavaPageRank {
     }
     
     long elapsedTimeMillis = System.currentTimeMillis() - startTime;
-    System.out.printf("Total latency: %d s\n", elapsedTimeMillis / 1000);
+    System.out.printf("Total latency: %d ms\n", elapsedTimeMillis);
     
 
     // Collects all URL ranks and dump them to console.
