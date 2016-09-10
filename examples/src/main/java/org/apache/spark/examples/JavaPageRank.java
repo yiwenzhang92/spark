@@ -82,7 +82,7 @@ public final class JavaPageRank {
       .appName("JavaPageRank")
       .getOrCreate();
 
-    
+    long startTime = System.currentTimeMillis();
     
     // Loads in input file. It should be in format of:
     //     URL         neighbor URL
@@ -109,7 +109,6 @@ public final class JavaPageRank {
       }
     });
       
-    long startTime = System.currentTimeMillis();
 
     // Calculates and updates URL ranks continuously using PageRank algorithm.
     for (int current = 0; current < Integer.parseInt(args[1]); current++) {
