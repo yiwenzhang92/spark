@@ -70,8 +70,8 @@ public final class JavaPageRank {
   }
 
   public static void main(String[] args) throws Exception {
-    if (args.length < 2) {
-      System.err.println("Usage: JavaPageRank <file> <number_of_iterations>");
+    if (args.length < 3) {
+      System.err.println("Usage: JavaPageRank <file> <number_of_iterations> <output_directory>");
       System.exit(1);
     }
 
@@ -82,6 +82,8 @@ public final class JavaPageRank {
       .appName("JavaPageRank")
       .getOrCreate();
 
+    long startTime = System.currentTimeMillis();
+    
     // Loads in input file. It should be in format of:
     //     URL         neighbor URL
     //     URL         neighbor URL
@@ -106,6 +108,7 @@ public final class JavaPageRank {
         return 1.0;
       }
     });
+      
 
     // Calculates and updates URL ranks continuously using PageRank algorithm.
     for (int current = 0; current < Integer.parseInt(args[1]); current++) {
@@ -131,12 +134,18 @@ public final class JavaPageRank {
         }
       });
     }
+    
+    long elapsedTimeMillis = System.currentTimeMillis() - startTime;
+    System.out.printf("Total latency: %d ms\n", elapsedTimeMillis);
+    
 
     // Collects all URL ranks and dump them to console.
     List<Tuple2<String, Double>> output = ranks.collect();
-    for (Tuple2<?,?> tuple : output) {
-        System.out.println(tuple._1() + " has rank: " + tuple._2() + ".");
-    }
+    String outputDir = args[2];
+    output.saveAsTextFileoutput(outputDir);
+//    for (Tuple2<?,?> tuple : output) {
+//        System.out.println(tuple._1() + " has rank: " + tuple._2() + ".");
+//    }
 
     spark.stop();
   }
