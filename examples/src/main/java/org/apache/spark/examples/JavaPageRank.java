@@ -142,7 +142,7 @@ public final class JavaPageRank {
     // Collects all URL ranks and dump them to console.
     List<Tuple2<String, Double>> output = ranks.collect();
     String outputDir = args[2];
-    output.saveAsTextFileoutput(outputDir);
+    output.saveAsTextFile(outputDir);
 //    for (Tuple2<?,?> tuple : output) {
 //        System.out.println(tuple._1() + " has rank: " + tuple._2() + ".");
 //    }
