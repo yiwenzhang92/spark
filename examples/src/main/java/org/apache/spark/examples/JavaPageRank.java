@@ -135,8 +135,6 @@ public final class JavaPageRank {
       });
     }
     
-    long elapsedTimeMillis = System.currentTimeMillis() - startTime;
-    System.out.printf("Total latency: %d ms\n", elapsedTimeMillis);
     
 
     // Collects all URL ranks and dump them to console.
@@ -146,6 +144,8 @@ public final class JavaPageRank {
 //    for (Tuple2<?,?> tuple : output) {
 //        System.out.println(tuple._1() + " has rank: " + tuple._2() + ".");
 //    }
+    long elapsedTimeMillis = System.currentTimeMillis() - startTime;
+    System.out.printf("Total latency: %d ms\n", elapsedTimeMillis);
 
     spark.stop();
   }
