@@ -4,7 +4,7 @@
 package org.apache.spark.examples
 
 import org.apache.spark.graphx.GraphLoader
-
+import org.apache.spark.sql.SparkSession
 
 import org.apache.spark._
 import org.apache.spark.graphx._
@@ -14,19 +14,28 @@ import org.apache.spark.graphx.lib._
 object PageRankTwitter {
     def main(args: Array[String]): Unit = {
 
-        val startTime = System.currentTimeMillis();
+        val spark = SparkSession
+            .builder
+            .appName("PageRank on Twitter")
+            .getOrCreate()
 
-        val graph = GraphLoader.edgeListFile(sc, "/home/ubuntu/edgein.txt");
+        val conf = new SparkConf().setAppName("PageRank on Twitter")
 
-        val ranks = graph.staticPageRank(args(0)).vertices;
+        val sc = new SparkContext(conf)
 
-        ranks.saveAsTextFile("/home/ubuntu/out_spark");
+        val startTime = System.currentTimeMillis()
 
-        val elapsedTimeMillis = System.currentTimeMillis() - startTime;
+        val graph = GraphLoader.edgeListFile(sc, "/home/ubuntu/edgein.txt")
 
-        println("Total latency: " + elapsedTimeMillis);
+        val ranks = graph.staticPageRank(args(0)).vertices
 
-        spark.stop();
+        ranks.saveAsTextFile("/home/ubuntu/out_spark")
+
+        val elapsedTimeMillis = System.currentTimeMillis() - startTime
+
+        println("Total latency: " + elapsedTimeMillis)
+
+        spark.stop()
     }
 }
 
