@@ -6,9 +6,9 @@ package org.apache.spark.examples
 import org.apache.spark.graphx.GraphLoader
 
 
-//import org.apache.spark._
-//import org.apache.spark.graphx._
-//import org.apache.spark.graphx.lib._
+import org.apache.spark._
+import org.apache.spark.graphx._
+import org.apache.spark.graphx.lib._
 
 
 object PageRankTwitter {
